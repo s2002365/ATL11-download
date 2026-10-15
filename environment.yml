@@ -1,0 +1,15 @@
+name: atl11-subset
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.10
+  - geopandas
+  - numpy
+  - h5py
+  - fsspec
+  - aiohttp
+  - pyproj
+  - requests
+  - shapely
+  - matplotlib
+  - jupyterlab
