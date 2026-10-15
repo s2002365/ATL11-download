@@ -7,20 +7,18 @@ Originally written by Ben Smith (UW); adapted by Bryony Freer (SIO).
 ## Setup
 
 1. Create the conda environment:
-
-   `conda env create -f environment.yml`
-
-   `conda activate atl11-subset`
+    ```bash
+   conda env create -f environment.yml
+   conda activate atl11-subset
+   ```
 
 2. Set up NASA Earthdata Login credentials, either: 
     - a `~/.netrc` entry: 
-
-        `machine urs.earthdata.nasa.gov`
-
-        `login <your username>`
-
-        `password <your password>`
-
+    ```bash 
+    machine urs.earthdata.nasa.gov
+    login <your username>
+    password <your password>
+    ```
     - or the `$EARTHDATA_TOKEN` environment variable. 
 
 
