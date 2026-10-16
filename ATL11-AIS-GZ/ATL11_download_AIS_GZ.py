@@ -6,8 +6,9 @@ Usage:
     python ATL11_download_AIS_GZ.py
     python ATL11_download_AIS_GZ.py --roi-path other_basins.gpkg --out-dir /other/atl11_output
     python ATL11_download_AIS_GZ.py --basin-id 11
+    python ATL11_download_AIS_GZ.py --max-workers 128
 
---roi-path, --out-dir, and --basin-id are all optional; see
+--roi-path, --out-dir, --basin-id, and --max-workers are all optional; see
 `python ATL11_download_AIS_GZ.py --help` for their defaults.
 """
 
@@ -47,6 +48,10 @@ def parse_args():
                    help='Output directory for subsetted ATL11 files (default: %(default)s)')
     p.add_argument('--basin-id', type=int, default=None,
                    help='Process only this Basin_ID, instead of every basin in the geopackage')
+    p.add_argument('--max-workers', type=int, default=128,
+                   help='Ceiling for workers="auto" -- one worker per granule, up to this many '
+                        '(default: %(default)s). Raise this on a machine with a high ulimit -n '
+                        'and spare RAM/network capacity.')
     return p.parse_args()
 
 
@@ -70,7 +75,7 @@ def main():
                 version="007",
                 variables=VARIABLES,
                 workers="auto",
-                max_workers=128,
+                max_workers=args.max_workers,
                 trim=True,
                 verbose=True,
             )

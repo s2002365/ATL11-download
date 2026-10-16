@@ -6,6 +6,18 @@ Script can be re-run periodically as the ATL11 product is updated with new cycle
 
 Depends on `is2_subset.py` in the parent directory (`../is2_subset.py`) -- see the main repo README for environment setup and Earthdata credentials.
 
+***Set up Earthdata credentials:*** 
+
+To download ATL11 data, the `read_subset()` function needs NASA Earthdata Login credentials to authenticate. You can create a `~/.netrc/` entry with your credentials: 
+```bash
+cat >> ~/.netrc << 'EOF'
+machine urs.earthdata.nasa.gov
+login <your Earthdata username>
+password <your Earthdata password>
+EOF
+chmod 600 ~/.netrc
+```
+
 ## Usage
 
 **Run this from inside the `ATL11-AIS-GZ/` directory**. The default `--roi-path`/`--out-dir` are relative to your current working directory, not the script's location:
@@ -19,13 +31,18 @@ Run every basin:
 python ATL11_download_AIS_GZ.py
 ```
 
-**Defaults:** `--roi-path RINGS_GL_GSFC_basins_50km_buffer.gpkg` (the file in this folder) and `--out-dir data/` (created inside this folder).
+**Defaults:** `--roi-path RINGS_GL_GSFC_basins_50km_buffer.gpkg` (the file in this folder) and `--out-dir data/` (created inside this folder), `--max-workers` 128
 
 
 Run just one basin, or point at a different geopackage/output directory: 
 ```bash 
-python ATL11_download_AIS_GZ.py --basin-id 11
+python ATL11_download_AIS_GZ.py --basin-id 11 
 python ATL11_download_AIS_GZ.py --roi-path other_basins.gpkg --out-dir /other/directory/atl11_output
+```
+
+Raise the worker ceiling on a machine with spare capacity and a high `ulimit -n`: 
+```bash
+python ATL11_download_AIS_GZ.py --max-workers 256
 ```
 
 See `python ATL11_download_AIS_GZ.py --help` for all options.
