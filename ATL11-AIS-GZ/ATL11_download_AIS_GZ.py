@@ -32,6 +32,7 @@ VARIABLES = [
     "cycle_number",
     "ref_surf/geoid_h",
     "ref_surf/dem_h",
+    "ref_surf/x_atc",
     "cycle_stats/tide_ocean",
     "cycle_stats/dac",
     "ancillary_data/start_rgt",
